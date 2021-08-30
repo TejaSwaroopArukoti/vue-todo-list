@@ -1,15 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div>
+<input type="text" v-model="todoInput"/>
+<button v-on:click="addBtnHandler">Add</button>
+<ul v-for="(todo,index) in todos" :key="todo.text">
+  <li><input type="checkbox" v-model="todo.checked"/> {{todo.text}}</li>
+  <button v-on:click="deleteTodo(index)">Delete</button>
+</ul>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
+  },
+  data: function() {
+    return {
+      todoInput:"",
+      todos:[]
+    }
+  },
+  methods: {
+    addBtnHandler: function ( ) {
+     console.log('hello')
+     this.todos.push({text:this.todoInput,checked:false})
+     this.todoInput = ""
+    },
+    deleteTodo: function(index) {
+      this.todos.splice(index,1)
+    }
   }
 }
 </script>
